@@ -1,8 +1,16 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+
 import Colors from '../constants/Colors'
 
-export default function Customer({ bg, title, id, price, onPress }) {
+export default function Customer({ bg, title, id, price }) {
+    const { navigate } = useNavigation()
+
+    const onPress = () => {
+        navigate('cart', { bg, title, id, price })
+    }
+
     return (
         <TouchableOpacity
             onPress={onPress}
