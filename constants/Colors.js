@@ -1,14 +1,40 @@
-const tintColor = '#2f95dc';
+const tintColor = '#2f95dc'
 
 export default {
-  tintColor,
-  tabIconDefault: '#ccc',
-  tabIconSelected: tintColor,
-  tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
-  noticeBackground: tintColor,
-  noticeText: '#fff',
-};
+    background: '#fff',
+    main: '#0A89E4',
+    dark: '#333',
+
+    customer: [
+        '#C2DC20',
+        '#E7636B',
+        '#16CDF5',
+        '#7331C7',
+        '#860B88',
+        '#3245A8',
+        '#42A832',
+        '#32A8A1',
+        '#423333',
+        '#C9BA3C',
+        '#44547D',
+        '#368181',
+        '#94449B',
+        '#9B4444',
+        '#CB2C2C',
+        '#26B846',
+        '#16CCD8',
+        '#1687D8',
+    ],
+
+    white: '#fff',
+    tintColor,
+    tabIconDefault: '#ccc',
+    tabIconSelected: tintColor,
+    tabBar: '#fefefe',
+    errorBackground: 'red',
+    errorText: '#fff',
+    warningBackground: '#EAEB5E',
+    warningText: '#666804',
+    noticeBackground: tintColor,
+    noticeText: '#fff',
+}
