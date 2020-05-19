@@ -4,11 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 
 import Colors from '../constants/Colors'
 
-export default function Customer({ bg, title, id, price }) {
+export default function Customer(props) {
     const { navigate } = useNavigation()
+    const { bg, title, id, price } = props
 
     const onPress = () => {
-        navigate('cart', { bg, title, id, price })
+        navigate('cart', props)
     }
 
     return (
