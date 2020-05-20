@@ -4,20 +4,25 @@ import { useNavigation } from '@react-navigation/native'
 
 import CartItem from '../components/CartItem'
 import Colors from '../constants/Colors'
+import { AppContext } from '../context/AppProvider'
+import { formatMoney } from '../utils/helpers'
 
 export default function CartScreen({ route }) {
+    const {
+        data: { customers },
+    } = React.useContext(AppContext)
     const navigation = useNavigation()
-    const data = route.params
 
-    React.useEffect(() => {
-        navigation.setOptions({
-            headerTitle: `Cena: ${data.price} din`,
-            headerTitleAlign: 'center',
-            headerStyle: { backgroundColor: data.bg },
-            headerTitleStyle: { color: Colors.white },
-            headerTintColor: Colors.white,
-        })
-    }, [data])
+    const { id } = route.params
+    const data = customers[id]
+
+    navigation.setOptions({
+        headerTitle: `Ukupna cena: ${formatMoney(data.price)} din`,
+        headerTitleAlign: 'center',
+        headerStyle: { backgroundColor: data.bg },
+        headerTitleStyle: { color: Colors.white },
+        headerTintColor: Colors.white,
+    })
 
     return (
         <View style={styles.container}>
@@ -25,10 +30,16 @@ export default function CartScreen({ route }) {
             <FlatList
                 data={data.items}
                 renderItem={({ item }) => (
-                    <CartItem {...item} {...data} recorded />
+                    <CartItem
+                        {...item}
+                        {...data}
+                        id={id}
+                        itemId={item.id}
+                        recorded
+                    />
                 )}
-                keyExtractor={item => item.cost.toString()}
-                ListFooterComponent={<CartItem {...data} />}
+                keyExtractor={item => item.id}
+                ListFooterComponent={<CartItem {...data} id={id} />}
             />
         </View>
     )

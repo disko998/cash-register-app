@@ -9,21 +9,29 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AppContext } from '../context/AppProvider'
 
 export default function HomeScreen({ navigation }) {
-    navigation.setOptions({
-        headerTitle: 'Disko Zimnica Kasa',
-        headerTitleAlign: 'center',
-    })
     const { data, actions } = React.useContext(AppContext)
+
+    React.useEffect(() => {
+        navigation.setOptions({
+            headerTitle: 'Moja Kasa',
+            headerTitleAlign: 'center',
+        })
+    }, [])
 
     return (
         <View style={styles.container}>
             <FlatList
-                data={data.customers}
-                renderItem={({ item }) => <Customer {...item} />}
+                data={actions.objToArray(data.customers)}
+                renderItem={({ item, index }) => (
+                    <Customer {...item} index={index} />
+                )}
                 keyExtractor={item => item.id.toString()}
             />
-            <View style={styles.fab}>
-                <TouchableOpacity onPress={actions.addCustomer}>
+            <View style={styles.absoluteView}>
+                <TouchableOpacity
+                    style={styles.fab}
+                    onPress={actions.addCustomer}
+                >
                     <Feather name='plus' size={30} color={Colors.white} />
                 </TouchableOpacity>
             </View>
@@ -39,13 +47,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.background,
-        padding: 15,
+        padding: 10,
     },
     fab: {
-        zIndex: 99,
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
         borderRadius: 50,
         backgroundColor: Colors.main,
         justifyContent: 'center',
@@ -54,5 +58,11 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         alignSelf: 'flex-end',
+    },
+    absoluteView: {
+        zIndex: 99,
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
     },
 })

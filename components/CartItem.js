@@ -10,14 +10,22 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import Colors from '../constants/Colors'
+import { AppContext } from '../context/AppProvider'
+import { formatMoney } from '../utils/helpers'
 
-export default function CartItem({ bg, cost, recorded }) {
+export default function CartItem({ itemId, bg, cost, recorded, id }) {
+    const {
+        actions: { addItem, removeItem },
+    } = React.useContext(AppContext)
     const [itemCost, setItemCost] = React.useState('')
 
     const onChange = value => {
         setItemCost(value)
     }
-    const onPress = () => {}
+    const onPress = () => {
+        recorded ? removeItem(id, itemId) : addItem(id, itemCost)
+        setItemCost('')
+    }
 
     return (
         <View style={[styles.wrapper, { backgroundColor: bg }]}>
@@ -27,7 +35,9 @@ export default function CartItem({ bg, cost, recorded }) {
                 color={Colors.white}
             />
             {recorded ? (
-                <Text style={styles.itemCost}>cena: {cost} din</Text>
+                <Text style={styles.itemCost}>
+                    Cena proizvoda: {formatMoney(cost)} din
+                </Text>
             ) : (
                 <TextInput
                     style={styles.input}
