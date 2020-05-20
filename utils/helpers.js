@@ -1,7 +1,7 @@
 import Colors from '../constants/Colors'
 
 export const getRandomColor = () =>
-    Colors.customer[Math.floor(Math.random() * Colors.customer.length)]
+    Colors.pallet[Math.floor(Math.random() * Colors.pallet.length)]
 
 export function toHexString(byteArray) {
     return Array.from(byteArray, function (byte) {

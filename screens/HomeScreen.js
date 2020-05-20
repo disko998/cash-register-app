@@ -15,6 +15,8 @@ export default function HomeScreen({ navigation }) {
         navigation.setOptions({
             headerTitle: 'Moja Kasa',
             headerTitleAlign: 'center',
+            headerStyle: { backgroundColor: Colors.main },
+            headerTitleStyle: { color: Colors.white },
         })
     }, [])
 

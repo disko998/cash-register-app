@@ -1,23 +1,36 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import TabBarIcon from '../components/TabBarIcon'
 import LinksScreen from '../screens/LinksScreen'
 import HomeStack from './HomeStack'
 import { Routes } from '../constants/Strings'
+import Colors from '../constants/Colors'
 
-const BottomTab = createBottomTabNavigator()
+const BottomTab = createMaterialBottomTabNavigator()
 
 export default function BottomTabNavigator({ navigation, route }) {
+    console.log(route)
     return (
-        <BottomTab.Navigator initialRouteName={Routes.DASHBOARD}>
+        <BottomTab.Navigator
+            initialRouteName={Routes.DASHBOARD}
+            shifting={true}
+            activeColor={Colors.tintActive}
+            inactiveColor={Colors.tintInactive}
+            keyboardHidesNavigationBar={true}
+        >
             <BottomTab.Screen
                 name={Routes.DASHBOARD}
                 component={HomeStack}
                 options={{
-                    title: 'Get Started',
-                    tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name='md-code-working' />
+                    tabBarColor: Colors.tintColorPrimary,
+                    tabBarLabel: 'Kasa',
+                    tabBarIcon: ({ focused, color }) => (
+                        <MaterialCommunityIcons
+                            name='cash-register'
+                            color={color}
+                            size={26}
+                        />
                     ),
                 }}
             />
@@ -25,9 +38,14 @@ export default function BottomTabNavigator({ navigation, route }) {
                 name='Links'
                 component={LinksScreen}
                 options={{
-                    title: 'Resources',
-                    tabBarIcon: ({ focused }) => (
-                        <TabBarIcon focused={focused} name='md-book' />
+                    tabBarColor: Colors.tintColorSecondary,
+                    tabBarLabel: 'Postavke',
+                    tabBarIcon: ({ focused, color }) => (
+                        <MaterialCommunityIcons
+                            name='settings'
+                            color={color}
+                            size={26}
+                        />
                     ),
                 }}
             />

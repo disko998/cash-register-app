@@ -5,6 +5,7 @@ import {
     TextInput,
     TouchableOpacity,
     Text,
+    Keyboard,
 } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -25,6 +26,7 @@ export default function CartItem({ itemId, bg, cost, recorded, id }) {
     const onPress = () => {
         recorded ? removeItem(id, itemId) : addItem(id, itemCost)
         setItemCost('')
+        Keyboard.dismiss()
     }
 
     return (
@@ -36,7 +38,7 @@ export default function CartItem({ itemId, bg, cost, recorded, id }) {
             />
             {recorded ? (
                 <Text style={styles.itemCost}>
-                    Cena proizvoda: {formatMoney(cost)} din
+                    Cena: {formatMoney(cost)} din
                 </Text>
             ) : (
                 <TextInput
@@ -45,6 +47,8 @@ export default function CartItem({ itemId, bg, cost, recorded, id }) {
                     onChangeText={onChange}
                     placeholder='Unesite cenu proizvoda'
                     keyboardType='number-pad'
+                    onSubmitEditing={onPress}
+                    autoFocus={true}
                 />
             )}
             <TouchableOpacity onPress={onPress}>

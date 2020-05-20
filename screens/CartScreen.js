@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, FlatList, StatusBar, StyleSheet } from 'react-native'
+import { View, StatusBar, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
 import CartItem from '../components/CartItem'
 import Colors from '../constants/Colors'
@@ -27,7 +28,9 @@ export default function CartScreen({ route }) {
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content' backgroundColor={data.bg} />
-            <FlatList
+
+            <KeyboardAwareFlatList
+                keyboardShouldPersistTaps='always'
                 data={data.items}
                 renderItem={({ item }) => (
                     <CartItem
@@ -49,6 +52,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.background,
-        padding: 15,
+        padding: 10,
     },
 })

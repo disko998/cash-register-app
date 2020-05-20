@@ -7,39 +7,12 @@ import { getRandomColor, toHexString } from '../utils/helpers'
 export const AppContext = React.createContext()
 export const Provider = AppContext.Provider
 
-const item = () => ({
-    cost: Math.floor(Math.random() * 500),
-})
-
-const CUSTOMERS = {
-    asdastg21j3: {
-        title: 'Kupac',
-        price: 230,
-        bg: Colors.customer[0],
-        items: [item()],
-    },
-    dnam12e2hj3e: {
-        title: 'Kupac',
-        price: 650.32,
-        bg: Colors.customer[1],
-        items: [item(), item()],
-    },
-    adsn1n2h12j21h: {
-        title: 'Kupac',
-        price: 350,
-        bg: Colors.customer[2],
-        items: [item(), item(), item()],
-    },
-}
-
 export default class AppProvider extends Component {
     state = {
         customers: {},
     }
 
-    componentDidMount() {
-        // this.calculatePrice()
-    }
+    componentDidMount() {}
 
     addCustomer = async () => {
         const { customers } = this.state
