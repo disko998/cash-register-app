@@ -8,6 +8,7 @@ import { AppContext } from '../context/AppProvider'
 import { formatMoney } from '../utils/helpers'
 import InputForm from '../components/InputForm'
 import { Platform } from 'react-native'
+import BillModal from '../components/Modal'
 
 export default function CartScreen({ route }) {
     const {
@@ -16,6 +17,7 @@ export default function CartScreen({ route }) {
     } = React.useContext(AppContext)
     const [itemPrice, setItemPrice] = React.useState('')
     const [customerPay, setCustomerPay] = React.useState('')
+    const [visible, setVisible] = React.useState(false)
     const itemPriceRef = React.useRef()
     const payInputRef = React.useRef()
     const navigation = useNavigation()
@@ -39,6 +41,10 @@ export default function CartScreen({ route }) {
 
     const focusPayInput = () => {
         payInputRef && payInputRef.current.focus()
+    }
+
+    const toggleOverlay = () => {
+        setVisible(!visible)
     }
 
     return (
@@ -82,13 +88,20 @@ export default function CartScreen({ route }) {
 
             <InputForm
                 ref={payInputRef}
-                title='Plati'
+                title='Racun'
                 value={customerPay}
                 onChangeText={setCustomerPay}
-                placeholder={`Plati: ${formatMoney(data.price)} din`}
-                onSubmitEditing={() => {}}
-                onPress={() => {}}
+                placeholder={`Racun: ${formatMoney(data.price)} din`}
+                onSubmitEditing={toggleOverlay}
+                onSubmit={toggleOverlay}
                 top
+            />
+
+            <BillModal
+                visible={visible}
+                toggleOverlay={toggleOverlay}
+                data={data}
+                payed={customerPay}
             />
         </View>
     )

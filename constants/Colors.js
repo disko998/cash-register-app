@@ -8,6 +8,7 @@ export default {
     dark: '#333',
     white: '#fff',
     grayLight: '#ededed',
+    darkGray: '#5c5c5c',
 
     pallet: [
         '#1687D8',
