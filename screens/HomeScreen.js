@@ -1,15 +1,17 @@
-import * as WebBrowser from 'expo-web-browser'
 import * as React from 'react'
 import { StyleSheet, FlatList, View } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 
 import Colors from '../constants/Colors'
-import Customer from '../components/Customer'
+import ItemCard from '../components/ItemCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AppContext } from '../context/AppProvider'
 
 export default function HomeScreen({ navigation }) {
-    const { data, actions } = React.useContext(AppContext)
+    const {
+        data: { customers },
+        actions: { removeCustomer, addCustomer, objToArray },
+    } = React.useContext(AppContext)
 
     React.useEffect(() => {
         navigation.setOptions({
@@ -23,17 +25,23 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <FlatList
-                data={actions.objToArray(data.customers)}
+                data={objToArray(customers)}
                 renderItem={({ item, index }) => (
-                    <Customer {...item} index={index} />
+                    <ItemCard
+                        title={item.title}
+                        bg={item.bg}
+                        text={item.price}
+                        onRemove={() => removeCustomer(item.id)}
+                        onPress={() =>
+                            navigation.navigate('cart', { id: item.id })
+                        }
+                        index={index}
+                    />
                 )}
                 keyExtractor={item => item.id.toString()}
             />
             <View style={styles.absoluteView}>
-                <TouchableOpacity
-                    style={styles.fab}
-                    onPress={actions.addCustomer}
-                >
+                <TouchableOpacity style={styles.fab} onPress={addCustomer}>
                     <Feather name='plus' size={30} color={Colors.white} />
                 </TouchableOpacity>
             </View>

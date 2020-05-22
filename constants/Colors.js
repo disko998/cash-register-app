@@ -1,10 +1,13 @@
 export default {
     background: '#fff',
-    main: '#3f51b5',
-    mainLigth: '#757de8',
-    mainDark: '#002984',
+    main: '#0A89E4',
+    mainLigth: '#3daeff',
+    mainDark: '#0873bf',
+
+    // Monochromatic
     dark: '#333',
     white: '#fff',
+    grayLight: '#ededed',
 
     pallet: [
         '#1687D8',

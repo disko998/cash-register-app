@@ -4,7 +4,7 @@ import * as React from 'react'
 import { StatusBar, StyleSheet, View } from 'react-native'
 
 import useCachedResources from './hooks/useCachedResources'
-import BottomTabNavigator from './navigation/BottomTabNavigator'
+import HomeStack from './navigation/HomeStack'
 import LinkingConfiguration from './navigation/LinkingConfiguration'
 import AppProvider from './context/AppProvider'
 import { Routes } from './constants/Strings'
@@ -22,7 +22,8 @@ export default function App(props) {
             <View style={styles.container}>
                 <StatusBar
                     barStyle='dark-light'
-                    backgroundColor={Colors.mainDark}
+                    backgroundColor={Colors.main}
+                    animated={true}
                 />
 
                 <AppProvider>
@@ -30,7 +31,7 @@ export default function App(props) {
                         <Stack.Navigator headerMode='none'>
                             <Stack.Screen
                                 name={Routes.ROOT}
-                                component={BottomTabNavigator}
+                                component={HomeStack}
                             />
                         </Stack.Navigator>
                     </NavigationContainer>
@@ -43,6 +44,6 @@ export default function App(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.background,
     },
 })

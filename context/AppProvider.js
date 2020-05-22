@@ -61,7 +61,7 @@ export default class AppProvider extends Component {
             return
         }
 
-        customers[customerId].items.push({
+        customers[customerId].items.unshift({
             id: toHexString(await Random.getRandomBytesAsync(10)),
             cost,
         })

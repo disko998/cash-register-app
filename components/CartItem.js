@@ -31,11 +31,7 @@ export default function CartItem({ itemId, bg, cost, recorded, id }) {
 
     return (
         <View style={[styles.wrapper, { backgroundColor: bg }]}>
-            <FontAwesome
-                name={recorded ? 'opencart' : 'cart-plus'}
-                size={30}
-                color={Colors.white}
-            />
+            <FontAwesome name={'opencart'} size={25} color={Colors.white} />
             {recorded ? (
                 <Text style={styles.itemCost}>
                     Cena: {formatMoney(cost)} din
@@ -72,6 +68,7 @@ const styles = StyleSheet.create({
         padding: 15,
         flexDirection: 'row',
         minHeight: 70,
+        maxWidth: 500,
     },
     input: {
         backgroundColor: Colors.background,
@@ -83,7 +80,8 @@ const styles = StyleSheet.create({
     itemCost: {
         flex: 1,
         textAlign: 'center',
-        fontSize: 25,
+        fontSize: 18,
+        fontWeight: 'bold',
         color: Colors.white,
     },
 })
