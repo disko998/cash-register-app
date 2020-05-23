@@ -4,26 +4,26 @@ import { useNavigation } from '@react-navigation/native'
 
 import ItemCard from '../components/ItemCard'
 import Colors from '../constants/Colors'
+import { Routes } from '../constants/Strings'
 import { AppContext } from '../context/AppProvider'
 import { formatMoney } from '../utils/helpers'
 import InputForm from '../components/InputForm'
 import { Platform } from 'react-native'
-import BillModal from '../components/Modal'
+import BillModal from '../components/BillModal'
 
-export default function CartScreen({ route }) {
+export default function CartScreen({ route, navigation }) {
     const {
         data: { customers },
-        actions: { addItem, removeItem },
+        actions: { addItem, removeItem, checkout },
     } = React.useContext(AppContext)
     const [itemPrice, setItemPrice] = React.useState('')
     const [customerPay, setCustomerPay] = React.useState('')
     const [visible, setVisible] = React.useState(false)
     const itemPriceRef = React.useRef()
     const payInputRef = React.useRef()
-    const navigation = useNavigation()
 
     const { id } = route.params
-    const data = customers[id]
+    const data = { ...customers[id], id }
 
     navigation.setOptions({
         headerTitle: `Ukupno: ${formatMoney(data.price)} din`,
@@ -37,6 +37,11 @@ export default function CartScreen({ route }) {
         addItem(id, itemPrice)
         setItemPrice('')
         itemPriceRef && itemPriceRef.current.focus()
+    }
+
+    const onCheckout = () => {
+        navigation.goBack()
+        checkout(data)
     }
 
     const focusPayInput = () => {
@@ -102,6 +107,7 @@ export default function CartScreen({ route }) {
                 toggleOverlay={toggleOverlay}
                 data={data}
                 payed={customerPay}
+                onPress={onCheckout}
             />
         </View>
     )

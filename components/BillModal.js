@@ -6,7 +6,7 @@ import { Overlay, Text, Divider, Button } from 'react-native-elements'
 import { formatMoney } from '../utils/helpers'
 import Colors from '../constants/Colors'
 
-const BillModal = ({ data, visible, toggleOverlay, payed = 0 }) => {
+const BillModal = ({ data, visible, toggleOverlay, payed = 0, onPress }) => {
     return Platform.OS !== 'web' ? (
         <Overlay
             isVisible={visible}
@@ -14,7 +14,7 @@ const BillModal = ({ data, visible, toggleOverlay, payed = 0 }) => {
             overlayStyle={styles.overlayStyle}
         >
             <View style={styles.wrapper}>
-                <Text h3 style={styles.title}>
+                <Text h4 style={styles.title}>
                     Vas racun:
                 </Text>
                 {data.items.map((item, i) => (
@@ -26,19 +26,23 @@ const BillModal = ({ data, visible, toggleOverlay, payed = 0 }) => {
                         <Divider style={styles.line} />
                     </React.Fragment>
                 ))}
-                <Text h4 style={styles.darkText}>
+                <Text style={styles.darkText}>
                     Za placanje: {formatMoney(data.price)} din
                 </Text>
-                <Text h4 style={styles.darkText}>
+                <Text style={styles.darkText}>
                     Placeno: {formatMoney(payed)} din
                 </Text>
                 <Divider style={styles.line} />
-                <Text h4>
+                <Text h4 style={styles.exchange}>
                     Povracaj:{' '}
                     {formatMoney(parseFloat(payed) - parseFloat(data.price))}{' '}
                     din
                 </Text>
-                <Button title='Potvrdi' containerStyle={styles.button} />
+                <Button
+                    title='Potvrdi'
+                    containerStyle={styles.button}
+                    onPress={onPress}
+                />
             </View>
         </Overlay>
     ) : (
@@ -49,31 +53,35 @@ const BillModal = ({ data, visible, toggleOverlay, payed = 0 }) => {
             overlayStyle={styles.overlayStyle}
         >
             <View style={styles.wrapper}>
-                <Text h3 style={styles.title}>
+                <Text h4 style={styles.title}>
                     Vas racun:
                 </Text>
                 {data.items.map((item, i) => (
                     <React.Fragment key={item.id}>
                         <View style={styles.itemPriceView}>
-                            <Text>{`#${i + 1}:    `}</Text>
+                            <Text>{`#${i + 1}:\b\b`}</Text>
                             <Text>{formatMoney(item.cost)} din</Text>
                         </View>
                         <Divider style={styles.line} />
                     </React.Fragment>
                 ))}
-                <Text h4 style={styles.darkText}>
+                <Text style={styles.darkText}>
                     Za placanje: {formatMoney(data.price)} din
                 </Text>
-                <Text h4 style={styles.darkText}>
+                <Text style={styles.darkText}>
                     Placeno: {formatMoney(payed)} din
                 </Text>
                 <Divider style={styles.line} />
-                <Text h4>
+                <Text h4 style={styles.exchange}>
                     Povracaj:{' '}
                     {formatMoney(parseFloat(payed) - parseFloat(data.price))}{' '}
                     din
                 </Text>
-                <Button title='Potvrdi' containerStyle={styles.button} />
+                <Button
+                    title='Potvrdi'
+                    containerStyle={styles.button}
+                    onPress={onPress}
+                />
             </View>
         </Overlay>
     )
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     title: {
-        marginBottom: 15,
+        marginBottom: 20,
     },
     itemPriceView: {
         flexDirection: 'row',
@@ -106,12 +114,16 @@ const styles = StyleSheet.create({
         color: Colors.darkGray,
         marginVertical: 2,
         textAlign: 'center',
+        fontSize: 18,
     },
     line: { width: '100%', marginVertical: 10 },
     button: {
         width: '100%',
         backgroundColor: Colors.main,
         marginTop: 15,
+    },
+    exchange: {
+        textAlign: 'center',
     },
 })
 

@@ -7,6 +7,8 @@ todo
 [x] header text style
 [x] KeyboardAvoidFlatList
 
-[] Improve UX
 [] Finish paycheck
-[] Fix bugs
+
+-   Save bill in AsyncStorage
+    [] Improve UX
+    [] Fix bugs

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import * as Random from 'expo-random'
 
-import Colors from '../constants/Colors'
 import { getRandomColor, toHexString } from '../utils/helpers'
 
 export const AppContext = React.createContext()
@@ -102,6 +102,22 @@ export default class AppProvider extends Component {
         }))
     }
 
+    checkout = async data => {
+        if (!data) {
+            return
+        }
+
+        // Save bill in AsyncStorage
+        // await AsyncStorage.setItem('bill', data)
+
+        // Set customer to completed
+        const customers = this.state.customers
+
+        customers[data.id].completed = true
+
+        this.setState({ ...this.state, customers })
+    }
+
     calculatePrice = () => {
         const customers = this.state.customers
         const customersArray = Object.keys(customers)
@@ -128,9 +144,10 @@ export default class AppProvider extends Component {
             addItem,
             removeItem,
             removeCustomer,
+            checkout,
         } = this
 
-        console.log('STATE:', this.state)
+        __DEV__ && console.log('STATE:', this.state)
 
         return (
             <Provider
@@ -142,6 +159,7 @@ export default class AppProvider extends Component {
                         addItem,
                         removeItem,
                         removeCustomer,
+                        checkout,
                     },
                 }}
             >

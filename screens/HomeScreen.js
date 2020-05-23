@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <FlatList
-                data={objToArray(customers)}
+                data={objToArray(customers).filter(c => !c.completed)}
                 renderItem={({ item, index }) => (
                     <ItemCard
                         title={item.title}
