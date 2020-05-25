@@ -1,0 +1,39 @@
+{
+  "background_color": "#fff",
+  "description": "",
+  "display": "standalone",
+  "lang": "en",
+  "name": "Kasa",
+  "short_name": "Kasa",
+  "start_url": "/?utm_source=web_app_manifest",
+  "orientation": "portrait",
+  "related_applications": [
+    {
+      "platform": "itunes",
+      "id": "com.stefan.Kasa"
+    },
+    {
+      "platform": "play",
+      "url": "http://play.google.com/store/apps/details?id=com.stefan.Kasa",
+      "id": "com.stefan.Kasa"
+    }
+  ],
+  "prefer_related_applications": true,
+  "icons": [
+    {
+      "src": "/disko998/Kasa/pwa/chrome-icon/chrome-icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/disko998/Kasa/pwa/chrome-icon/chrome-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/disko998/Kasa/pwa/chrome-icon/chrome-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

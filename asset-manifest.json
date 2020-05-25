@@ -1,0 +1,37 @@
+{
+  "files": {
+    "app.js": "/disko998/Kasa/static/js/app.bebe0f1b.chunk.js",
+    "app.js.map": "/disko998/Kasa/static/js/app.bebe0f1b.chunk.js.map",
+    "runtime~app.js": "/disko998/Kasa/static/js/runtime~app.13d97149.js",
+    "runtime~app.js.map": "/disko998/Kasa/static/js/runtime~app.13d97149.js.map",
+    "static/js/2.b05824d9.chunk.js": "/disko998/Kasa/static/js/2.b05824d9.chunk.js",
+    "static/js/2.b05824d9.chunk.js.map": "/disko998/Kasa/static/js/2.b05824d9.chunk.js.map",
+    "fonts/AntDesign.ttf": "/disko998/Kasa/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/disko998/Kasa/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/disko998/Kasa/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/disko998/Kasa/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/disko998/Kasa/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/disko998/Kasa/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Foundation.ttf": "/disko998/Kasa/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/disko998/Kasa/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/disko998/Kasa/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/disko998/Kasa/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/disko998/Kasa/./fonts/SimpleLineIcons.ttf",
+    "fonts/SpaceMono-Regular.ttf": "/disko998/Kasa/./fonts/SpaceMono-Regular.ttf",
+    "favicon-16.png": "/disko998/Kasa/favicon-16.png",
+    "favicon-32.png": "/disko998/Kasa/favicon-32.png",
+    "favicon.ico": "/disko998/Kasa/favicon.ico",
+    "index.html": "/disko998/Kasa/index.html",
+    "manifest.json": "/disko998/Kasa/manifest.json",
+    "serve.json": "/disko998/Kasa/serve.json",
+    "static/media/bell.png": "/disko998/Kasa/static/media/bell.a7b9dc9d.png",
+    "static/media/heart.png": "/disko998/Kasa/static/media/heart.2327736b.png",
+    "static/media/rocket.png": "/disko998/Kasa/static/media/rocket.51671417.png",
+    "static/media/star.png": "/disko998/Kasa/static/media/star.004c2bbb.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.13d97149.js",
+    "static/js/2.b05824d9.chunk.js",
+    "static/js/app.bebe0f1b.chunk.js"
+  ]
+}
