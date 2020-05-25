@@ -14,6 +14,7 @@ TODO:
 [x] Improve UI for web
 [x] side menu for overview
 
+[] some basic animations
 [] unit testing
 [] change currency
 [] monetization

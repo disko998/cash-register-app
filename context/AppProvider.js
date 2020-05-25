@@ -28,6 +28,7 @@ export default class AppProvider extends Component {
     addCustomer = async () => {
         const { customers } = this.state
         const id = toHexString(await Random.getRandomBytesAsync(10))
+        const randomColor = getRandomColor()
 
         this.setState(prevState => ({
             ...prevState,
@@ -36,7 +37,7 @@ export default class AppProvider extends Component {
                 [id]: {
                     title: 'Kasa',
                     price: 0,
-                    bg: getRandomColor(),
+                    bg: randomColor,
                     items: [],
                     date: new Date(),
                 },

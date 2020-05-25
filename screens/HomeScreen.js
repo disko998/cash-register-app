@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StyleSheet, FlatList, View, Platform } from 'react-native'
-import Feather from 'react-native-vector-icons/Feather'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Colors from '../constants/Colors'
 import { Routes } from '../constants/Strings'
@@ -20,6 +21,19 @@ export default function HomeScreen({ navigation }) {
             headerTitleAlign: 'center',
             headerStyle: { backgroundColor: Colors.main },
             headerTitleStyle: { color: Colors.white },
+            headerRight: () => (
+                <TouchableOpacity
+                    style={styles.menuButton}
+                    onPress={navigation.openDrawer}
+                    hitSlop={{ top: 20, bottom: 20, right: 20, left: 20 }}
+                >
+                    <MaterialCommunityIcons
+                        name='dots-vertical'
+                        size={30}
+                        color={Colors.white}
+                    />
+                </TouchableOpacity>
+            ),
         })
     }, [])
 
@@ -46,7 +60,11 @@ export default function HomeScreen({ navigation }) {
             />
             <View style={styles.absoluteView}>
                 <TouchableOpacity style={styles.fab} onPress={addCustomer}>
-                    <Feather name='plus' size={30} color={Colors.white} />
+                    <FontAwesome5
+                        name='cash-register'
+                        size={25}
+                        color={Colors.white}
+                    />
                 </TouchableOpacity>
             </View>
         </View>
@@ -85,5 +103,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexWrap: 'wrap',
         width: '100%',
+    },
+    menuButton: {
+        marginRight: 20,
     },
 })
