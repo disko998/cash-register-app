@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import * as Random from 'expo-random'
+import moment from 'moment'
 
 import { getRandomColor, toHexString } from '../utils/helpers'
 
@@ -16,6 +17,8 @@ export default class AppProvider extends Component {
     async componentDidMount() {
         const persistState = await this.persistState('GET')
         this.setState(persistState)
+
+        //AsyncStorage.clear()
     }
 
     componentDidUpdate() {
@@ -147,6 +150,70 @@ export default class AppProvider extends Component {
         }
     }
 
+    calculateEarnings = period => {
+        if (this.objToArray(this.state.customers).length) {
+            switch (period) {
+                case 'day':
+                    const today = moment()
+                    return this.objToArray(this.state.customers).reduce(
+                        (amount, c) => {
+                            const isToday = moment(c.date).isSame(today, 'day')
+                            if (c.checkout && isToday) {
+                                return c.checkout + amount
+                            } else {
+                                return amount
+                            }
+                        },
+                        0,
+                    )
+                case 'week':
+                    const lastWeek = moment().subtract(7, 'days')
+                    return this.objToArray(this.state.customers).reduce(
+                        (amount, c) => {
+                            const isWeek = moment(c.date).isSameOrAfter(
+                                lastWeek,
+                            )
+                            if (c.checkout && isWeek) {
+                                return c.checkout + amount
+                            } else {
+                                return amount
+                            }
+                        },
+                        0,
+                    )
+                case 'month':
+                    const lastMonth = moment().subtract(1, 'month')
+                    return this.objToArray(this.state.customers).reduce(
+                        (amount, c) => {
+                            const isMonth = moment(c.date).isSameOrAfter(
+                                lastMonth,
+                            )
+                            if (c.checkout && isMonth) {
+                                return c.checkout + amount
+                            } else {
+                                return amount
+                            }
+                        },
+                        0,
+                    )
+
+                default:
+                    return this.objToArray(this.state.customers).reduce(
+                        (amount, c) => {
+                            if (c.checkout) {
+                                return c.checkout + amount
+                            } else {
+                                return amount
+                            }
+                        },
+                        0,
+                    )
+            }
+        }
+
+        return 0
+    }
+
     render() {
         const {
             addCustomer,
@@ -156,6 +223,7 @@ export default class AppProvider extends Component {
             removeCustomer,
             checkout,
             validateCheckoutAmount,
+            calculateEarnings,
         } = this
 
         __DEV__ && console.log('STORE:', this.state)
@@ -172,6 +240,7 @@ export default class AppProvider extends Component {
                         removeCustomer,
                         checkout,
                         validateCheckoutAmount,
+                        calculateEarnings,
                     },
                 }}
             >
