@@ -50,7 +50,7 @@ export default function HomeScreen({ navigation }) {
                         onPress={() =>
                             navigation.navigate(Routes.CART, { id: item.id })
                         }
-                        index={index}
+                        iconName={'cash-register'}
                     />
                 )}
                 contentContainerStyle={

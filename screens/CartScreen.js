@@ -106,7 +106,7 @@ export default function CartScreen({ route, navigation }) {
                     <ItemCard
                         bg={data.bg}
                         text={item.cost}
-                        index={data.items.length - index - 1}
+                        iconName='cart-plus'
                         title='Artikal'
                         onRemove={() => removeItem(id, item.id)}
                     />
