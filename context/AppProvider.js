@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Alert } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import * as Random from 'expo-random'
 
 import { getRandomColor, toHexString } from '../utils/helpers'
@@ -45,11 +45,6 @@ export default class AppProvider extends Component {
     removeCustomer = customerId => {
         const customers = this.state.customers
 
-        if (!customers[customerId]) {
-            Alert.alert('Greska', `Nepoznat kupac id: ${customerId}`)
-            return
-        }
-
         delete customers[customerId]
 
         this.setState(prevState => ({
@@ -63,13 +58,11 @@ export default class AppProvider extends Component {
         cost = this.isNumber(cost)
 
         if (!customers[customerId]) {
-            alert('Greska', `Nepoznat kupac, id: ${customerId}`)
-            return
+            throw new Error(`Nepoznat kupac, id: ${customerId}`)
         }
 
         if (!cost) {
-            Alert.alert('Greska', `Pogresan format cene`)
-            return
+            throw new Error('Pogresna cena')
         }
 
         customers[customerId].items.unshift({
@@ -91,11 +84,6 @@ export default class AppProvider extends Component {
     removeItem = (customerId, itemId) => {
         const customers = this.state.customers
 
-        if (!customers[customerId]) {
-            alert('Greska', `Nepoznat kupac, id: ${customerId}`)
-            return
-        }
-
         customers[customerId].items = customers[customerId].items.filter(
             item => itemId !== item.id,
         )
@@ -110,7 +98,7 @@ export default class AppProvider extends Component {
         }))
     }
 
-    checkout = async (customer, checkoutAmount) => {
+    checkout = (customer, checkoutAmount) => {
         // Set customer checkout
         const customers = this.state.customers
 

@@ -7,6 +7,7 @@ import {
     Platform,
     Alert,
 } from 'react-native'
+import { useToast } from 'react-native-styled-toast'
 
 import ItemCard from '../components/ItemCard'
 import Colors from '../constants/Colors'
@@ -20,6 +21,7 @@ export default function CartScreen({ route, navigation }) {
         data: { customers },
         actions: { addItem, removeItem, checkout, validateCheckoutAmount },
     } = React.useContext(AppContext)
+    const { toast } = useToast()
 
     const [itemPrice, setItemPrice] = React.useState('')
     const [payedAmount, setPayedAmount] = React.useState('')
@@ -39,14 +41,25 @@ export default function CartScreen({ route, navigation }) {
         headerTintColor: Colors.white,
     })
 
-    const onAddItem = () => {
-        addItem(id, itemPrice)
-        setItemPrice('')
-        itemPriceRef && itemPriceRef.current.focus()
+    const onAddItem = async () => {
+        try {
+            await addItem(id, itemPrice)
+            setItemPrice('')
+            itemPriceRef && itemPriceRef.current.focus()
+        } catch (error) {
+            toast({
+                message: error.message,
+                intent: 'ERROR',
+            })
+        }
     }
 
     const onCheckout = () => {
         checkout(data, payedAmount)
+        toast({
+            message: 'Uspesna kupovina',
+            intent: 'SUCCESS',
+        })
         navigation.goBack()
     }
 
@@ -62,7 +75,10 @@ export default function CartScreen({ route, navigation }) {
         if (validateCheckoutAmount(payedAmount, data.price)) {
             toggleOverlay()
         } else {
-            Alert.alert('Ops', `Nemate dovoljno novca za ovu kupovinu`)
+            toast({
+                message: 'Nemate dovoljno novca za ovu kupovinu',
+                intent: 'ERROR',
+            })
         }
     }
 

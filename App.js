@@ -1,18 +1,16 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar, StyleSheet, View } from 'react-native'
+import { ThemeProvider } from 'styled-components'
+import { ToastProvider } from 'react-native-styled-toast'
 
 import useCachedResources from './hooks/useCachedResources'
 import HomeStack from './navigation/HomeStack'
 import LinkingConfiguration from './navigation/LinkingConfiguration'
 import AppProvider from './context/AppProvider'
-import { Routes } from './constants/Strings'
-import Colors from './constants/Colors'
+import Colors, { toastTheme } from './constants/Colors'
 
-const Stack = createStackNavigator()
-
-export default function App(props) {
+export default function App() {
     const isLoadingComplete = useCachedResources()
 
     if (!isLoadingComplete) {
@@ -27,14 +25,13 @@ export default function App(props) {
                 />
 
                 <AppProvider>
-                    <NavigationContainer linking={LinkingConfiguration}>
-                        <Stack.Navigator headerMode='none'>
-                            <Stack.Screen
-                                name={Routes.ROOT}
-                                component={HomeStack}
-                            />
-                        </Stack.Navigator>
-                    </NavigationContainer>
+                    <ThemeProvider theme={toastTheme}>
+                        <ToastProvider>
+                            <NavigationContainer linking={LinkingConfiguration}>
+                                <HomeStack />
+                            </NavigationContainer>
+                        </ToastProvider>
+                    </ThemeProvider>
                 </AppProvider>
             </View>
         )

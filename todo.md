@@ -10,7 +10,8 @@ TODO:
 [x] Fix bugs
 [x] persist data
 [x] fix blue button color
+[x] New popup notification
 
-[] Improve UX
+[] Improve UI for web
 [] change currency
 [] side menu for overview

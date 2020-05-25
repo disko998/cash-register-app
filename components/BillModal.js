@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View, FlatList } from 'react-native'
 import Modal from 'modal-react-native-web'
 import { Overlay, Text, Divider, Button } from 'react-native-elements'
 
@@ -17,15 +17,20 @@ const BillModal = ({ data, visible, toggleOverlay, payed = 0, onPress }) => {
                 <Text h4 style={styles.title}>
                     Vas racun:
                 </Text>
-                {data.items.map((item, i) => (
-                    <React.Fragment key={item.id}>
-                        <View style={styles.itemPriceView}>
-                            <Text>{`#${i + 1}:\b\b`}</Text>
-                            <Text>{formatMoney(item.cost)} din</Text>
-                        </View>
-                        <Divider style={styles.line} />
-                    </React.Fragment>
-                ))}
+                <FlatList
+                    style={{ maxHeight: 200, width: '100%' }}
+                    data={data.items}
+                    renderItem={({ item, index }) => (
+                        <React.Fragment key={item.id}>
+                            <View style={styles.itemPriceView}>
+                                <Text>{`#${index + 1}:\b\b`}</Text>
+                                <Text>{formatMoney(item.cost)} din</Text>
+                            </View>
+                            <Divider style={styles.line} />
+                        </React.Fragment>
+                    )}
+                    keyExtractor={item => item.id}
+                />
                 <Text style={styles.darkText}>
                     Za placanje: {formatMoney(data.price)} din
                 </Text>
@@ -56,15 +61,20 @@ const BillModal = ({ data, visible, toggleOverlay, payed = 0, onPress }) => {
                 <Text h4 style={styles.title}>
                     Vas racun:
                 </Text>
-                {data.items.map((item, i) => (
-                    <React.Fragment key={item.id}>
-                        <View style={styles.itemPriceView}>
-                            <Text>{`#${i + 1}:\b\b`}</Text>
-                            <Text>{formatMoney(item.cost)} din</Text>
-                        </View>
-                        <Divider style={styles.line} />
-                    </React.Fragment>
-                ))}
+                <FlatList
+                    style={{ maxHeight: 200, width: '100%' }}
+                    data={data.items}
+                    renderItem={({ item, index }) => (
+                        <React.Fragment key={item.id}>
+                            <View style={styles.itemPriceView}>
+                                <Text>{`#${index + 1}:\b\b`}</Text>
+                                <Text>{formatMoney(item.cost)} din</Text>
+                            </View>
+                            <Divider style={styles.line} />
+                        </React.Fragment>
+                    )}
+                    keyExtractor={item => item.id}
+                />
                 <Text style={styles.darkText}>
                     Za placanje: {formatMoney(data.price)} din
                 </Text>
