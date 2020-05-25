@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import { ToastProvider } from 'react-native-styled-toast'
 
 import useCachedResources from './hooks/useCachedResources'
-import HomeStack from './navigation/HomeStack'
+import Navigation from './navigation/Navigation'
 import LinkingConfiguration from './navigation/LinkingConfiguration'
 import AppProvider from './context/AppProvider'
 import Colors, { toastTheme } from './constants/Colors'
@@ -28,7 +28,7 @@ export default function App() {
                     <ThemeProvider theme={toastTheme}>
                         <ToastProvider>
                             <NavigationContainer linking={LinkingConfiguration}>
-                                <HomeStack />
+                                <Navigation />
                             </NavigationContainer>
                         </ToastProvider>
                     </ThemeProvider>

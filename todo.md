@@ -11,7 +11,10 @@ TODO:
 [x] persist data
 [x] fix blue button color
 [x] New popup notification
-
 [x] Improve UI for web
-[] side menu for overview
+[x] side menu for overview
+
+[] some basic animations
+[] unit testing
 [] change currency
+[] monetization

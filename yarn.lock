@@ -1399,6 +1399,14 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
+"@react-navigation/drawer@^5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.8.0.tgz#b94bd98cf27ed05d8d943a48f6d1952d0cb32a6f"
+  integrity sha512-JaVPfpNYiYVzw3vn6K7U38VCPUEKGpmlM4tcqeAEt8ShumwLQCPFWdcm8JfZaKnWJg6zFeexGf/5eU9CYaY0hQ==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@react-navigation/material-bottom-tabs@^5.2.5":
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-5.2.5.tgz#5b20992e284d34e4e16b26f1e255b22cc44f1a51"
@@ -5263,6 +5271,11 @@ modal-react-native-web@^0.2.0:
   dependencies:
     warning "^4.0.1"
 
+moment@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
+  integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
+
 morgan@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.10.0.tgz#091778abc1fc47cd3509824653dae1faab6b17d7"
@@ -6047,6 +6060,13 @@ react-native-ratings@^6.5.0:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
+
+react-native-reanimated@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.9.0.tgz#38676c99dd585504fdc7331efb45e5f48ec7339a"
+  integrity sha512-Aj+spgIHRiVv7ezGADxnSH1EoKrQRD2+XaSiGY0MiB/pvRNNrZPSJ+3NVpvLwWf9lZMOP7dwqqyJIzoZgBDt8w==
+  dependencies:
+    fbjs "^1.0.0"
 
 react-native-safe-area-context@0.7.3:
   version "0.7.3"

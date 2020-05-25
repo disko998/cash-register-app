@@ -3,6 +3,9 @@ export default {
     main: '#0A89E4',
     mainLigth: '#3daeff',
     mainDark: '#0873bf',
+    green: '#4DC252',
+    red: '#E7636B',
+    ocean: '#53D4BD',
 
     // Monochromatic
     dark: '#333',

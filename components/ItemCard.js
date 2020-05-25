@@ -7,9 +7,9 @@ import {
     Platform,
 } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Colors from '../constants/Colors'
-import Layout from '../constants/Layout'
 import { formatMoney } from '../utils/helpers'
 
 const width = Dimensions.get('window').width
@@ -18,7 +18,7 @@ export default function ItemCard({
     bg,
     title,
     text,
-    index,
+    iconName,
     onRemove,
     onPress,
 }) {
@@ -28,7 +28,11 @@ export default function ItemCard({
             disabled={!onPress}
             style={[styles.wrapper, { backgroundColor: bg }]}
         >
-            <Text style={styles.title}>{`${title}\n#${index + 1}`}</Text>
+            <MaterialCommunityIcons
+                name={iconName}
+                size={30}
+                color={Colors.white}
+            />
             <Text style={styles.price}>{formatMoney(text)} din</Text>
             <TouchableOpacity onPress={onRemove}>
                 <AntDesign name='close' size={30} color={Colors.white} />
@@ -47,6 +51,7 @@ const styles = StyleSheet.create({
         padding: 10,
         flexDirection: 'row',
         width: Platform.OS === 'web' ? width * 0.5 : 'auto',
+        minHeight: 70,
     },
     title: {
         textAlign: 'center',
