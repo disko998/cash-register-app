@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, View } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 
 import Colors from '../constants/Colors'
+import { Routes } from '../constants/Strings'
 import ItemCard from '../components/ItemCard'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AppContext } from '../context/AppProvider'
@@ -25,7 +26,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <FlatList
-                data={objToArray(customers).filter(c => !c.completed)}
+                data={objToArray(customers).filter(c => !c.checkout)}
                 renderItem={({ item, index }) => (
                     <ItemCard
                         title={item.title}
@@ -33,7 +34,7 @@ export default function HomeScreen({ navigation }) {
                         text={item.price}
                         onRemove={() => removeCustomer(item.id)}
                         onPress={() =>
-                            navigation.navigate('cart', { id: item.id })
+                            navigation.navigate(Routes.CART, { id: item.id })
                         }
                         index={index}
                     />

@@ -1,4 +1,4 @@
-todo
+TODO:
 
 [x] style cart header
 [x] create input component
@@ -6,9 +6,11 @@ todo
 [x] hidde bottom tab nav in cart screen
 [x] header text style
 [x] KeyboardAvoidFlatList
+[x] Finish paycheck
+[x] Fix bugs
+[x] persist data
+[x] fix blue button color
 
-[] Finish paycheck
-
--   Save bill in AsyncStorage
-    [] Improve UX
-    [] Fix bugs
+[] Improve UX
+[] change currency
+[] side menu for overview

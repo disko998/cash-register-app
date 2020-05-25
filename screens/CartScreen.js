@@ -1,26 +1,32 @@
 import React from 'react'
-import { View, StatusBar, StyleSheet, FlatList } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import {
+    View,
+    StatusBar,
+    StyleSheet,
+    FlatList,
+    Platform,
+    Alert,
+} from 'react-native'
 
 import ItemCard from '../components/ItemCard'
 import Colors from '../constants/Colors'
-import { Routes } from '../constants/Strings'
 import { AppContext } from '../context/AppProvider'
 import { formatMoney } from '../utils/helpers'
 import InputForm from '../components/InputForm'
-import { Platform } from 'react-native'
 import BillModal from '../components/BillModal'
 
 export default function CartScreen({ route, navigation }) {
     const {
         data: { customers },
-        actions: { addItem, removeItem, checkout },
+        actions: { addItem, removeItem, checkout, validateCheckoutAmount },
     } = React.useContext(AppContext)
+
     const [itemPrice, setItemPrice] = React.useState('')
-    const [customerPay, setCustomerPay] = React.useState('')
+    const [payedAmount, setPayedAmount] = React.useState('')
     const [visible, setVisible] = React.useState(false)
+
     const itemPriceRef = React.useRef()
-    const payInputRef = React.useRef()
+    const payedInputRef = React.useRef()
 
     const { id } = route.params
     const data = { ...customers[id], id }
@@ -40,16 +46,24 @@ export default function CartScreen({ route, navigation }) {
     }
 
     const onCheckout = () => {
+        checkout(data, payedAmount)
         navigation.goBack()
-        checkout(data)
     }
 
     const focusPayInput = () => {
-        payInputRef && payInputRef.current.focus()
+        payedInputRef && payedInputRef.current.focus()
     }
 
     const toggleOverlay = () => {
         setVisible(!visible)
+    }
+
+    const onBill = () => {
+        if (validateCheckoutAmount(payedAmount, data.price)) {
+            toggleOverlay()
+        } else {
+            Alert.alert('Ops', `Nemate dovoljno novca za ovu kupovinu`)
+        }
     }
 
     return (
@@ -92,13 +106,13 @@ export default function CartScreen({ route, navigation }) {
             />
 
             <InputForm
-                ref={payInputRef}
+                ref={payedInputRef}
                 title='Racun'
-                value={customerPay}
-                onChangeText={setCustomerPay}
+                value={payedAmount}
+                onChangeText={setPayedAmount}
                 placeholder={`Racun: ${formatMoney(data.price)} din`}
-                onSubmitEditing={toggleOverlay}
-                onSubmit={toggleOverlay}
+                onSubmitEditing={onBill}
+                onSubmit={onBill}
                 top
             />
 
@@ -106,7 +120,7 @@ export default function CartScreen({ route, navigation }) {
                 visible={visible}
                 toggleOverlay={toggleOverlay}
                 data={data}
-                payed={customerPay}
+                payed={payedAmount}
                 onPress={onCheckout}
             />
         </View>

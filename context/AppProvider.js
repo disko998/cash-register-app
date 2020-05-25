@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import * as Random from 'expo-random'
 
 import { getRandomColor, toHexString } from '../utils/helpers'
@@ -10,16 +10,25 @@ export const Provider = AppContext.Provider
 export default class AppProvider extends Component {
     state = {
         customers: {},
+        currency: 'din',
     }
 
-    componentDidMount() {}
+    async componentDidMount() {
+        const persistState = await this.persistState('GET')
+        console.log(persistState)
+        this.setState(persistState)
+    }
+
+    componentDidUpdate() {
+        this.persistState('SET')
+    }
 
     addCustomer = async () => {
         const { customers } = this.state
         const id = toHexString(await Random.getRandomBytesAsync(10))
 
-        this.setState({
-            ...this.state,
+        this.setState(prevState => ({
+            ...prevState,
             customers: {
                 ...customers,
                 [id]: {
@@ -27,16 +36,17 @@ export default class AppProvider extends Component {
                     price: 0,
                     bg: getRandomColor(),
                     items: [],
+                    date: new Date(),
                 },
             },
-        })
+        }))
     }
 
-    removeCustomer = async customerId => {
+    removeCustomer = customerId => {
         const customers = this.state.customers
 
         if (!customers[customerId]) {
-            alert(`Doslo je do greske, nepoznat ${customerId}`)
+            Alert.alert('Greska', `Nepoznat kupac id: ${customerId}`)
             return
         }
 
@@ -50,50 +60,26 @@ export default class AppProvider extends Component {
 
     addItem = async (customerId, cost) => {
         const customers = this.state.customers
+        cost = this.isNumber(cost)
 
         if (!customers[customerId]) {
-            alert(`Doslo je do greske, nepoznat ${customerId}`)
+            alert('Greska', `Nepoznat kupac, id: ${customerId}`)
             return
         }
 
-        if (!parseFloat(cost)) {
-            alert('Greska pri unosu cene')
+        if (!cost) {
+            Alert.alert('Greska', `Pogresan format cene`)
             return
         }
 
         customers[customerId].items.unshift({
             id: toHexString(await Random.getRandomBytesAsync(10)),
             cost,
+            date: new Date(),
         })
 
-        customers[customerId].price =
-            parseFloat(customers[customerId].price) + parseFloat(cost)
-        this.setState(prevState => ({
-            ...prevState,
-            customers,
-        }))
-    }
-
-    removeItem = async (customerId, itemId) => {
-        const customers = this.state.customers
-
-        if (!customers[customerId]) {
-            alert(`Doslo je do greske, nepoznat ${customerId}`)
-            return
-        }
-
-        customers[customerId].items = customers[customerId].items.filter(
-            item => {
-                if (itemId !== item.id) {
-                    return true
-                }
-
-                customers[customerId].price =
-                    parseFloat(customers[customerId].price) -
-                    parseFloat(item.cost)
-
-                return false
-            },
+        customers[customerId].price = this.calculatePrice(
+            customers[customerId].items,
         )
 
         this.setState(prevState => ({
@@ -102,39 +88,76 @@ export default class AppProvider extends Component {
         }))
     }
 
-    checkout = async data => {
-        if (!data) {
+    removeItem = (customerId, itemId) => {
+        const customers = this.state.customers
+
+        if (!customers[customerId]) {
+            alert('Greska', `Nepoznat kupac, id: ${customerId}`)
             return
         }
 
-        // Save bill in AsyncStorage
-        // await AsyncStorage.setItem('bill', data)
+        customers[customerId].items = customers[customerId].items.filter(
+            item => itemId !== item.id,
+        )
 
-        // Set customer to completed
+        customers[customerId].price = this.calculatePrice(
+            customers[customerId].items,
+        )
+
+        this.setState(prevState => ({
+            ...prevState,
+            customers,
+        }))
+    }
+
+    checkout = async (customer, checkoutAmount) => {
+        // Set customer checkout
         const customers = this.state.customers
 
-        customers[data.id].completed = true
+        customers[customer.id].checkout = parseFloat(checkoutAmount)
 
         this.setState({ ...this.state, customers })
     }
 
-    calculatePrice = () => {
-        const customers = this.state.customers
-        const customersArray = Object.keys(customers)
+    validateCheckoutAmount = (amount, price) => {
+        amount = this.isNumber(amount)
 
-        const updatedCustomers = customersArray.map(key => {
-            const price = customers[key].items.reduce((price, item) => {
-                return item.cost + price
-            }, 0)
+        if (!amount || amount < price) {
+            return false
+        }
 
-            return { ...customers[key], price }
-        })
+        return true
+    }
 
-        this.setState({ ...this.state, customers: updatedCustomers })
+    calculatePrice = items => {
+        return items.reduce((price, item) => item.cost + price, 0)
     }
 
     objToArray = obj => {
         return Object.keys(obj).map(key => ({ ...obj[key], id: key }))
+    }
+
+    isNumber = value => {
+        if (!parseFloat(value) || isNaN(value)) {
+            return false
+        }
+
+        return parseFloat(value)
+    }
+
+    persistState = async method => {
+        try {
+            if (method === 'SET') {
+                return await AsyncStorage.setItem(
+                    'persist',
+                    JSON.stringify(this.state),
+                )
+            } else {
+                return JSON.parse(await AsyncStorage.getItem('persist'))
+            }
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
     render() {
@@ -145,9 +168,10 @@ export default class AppProvider extends Component {
             removeItem,
             removeCustomer,
             checkout,
+            validateCheckoutAmount,
         } = this
 
-        __DEV__ && console.log('STATE:', this.state)
+        __DEV__ && console.log('STORE:', this.state)
 
         return (
             <Provider
@@ -160,6 +184,7 @@ export default class AppProvider extends Component {
                         removeItem,
                         removeCustomer,
                         checkout,
+                        validateCheckoutAmount,
                     },
                 }}
             >
