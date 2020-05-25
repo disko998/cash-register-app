@@ -15,7 +15,6 @@ export default class AppProvider extends Component {
 
     async componentDidMount() {
         const persistState = await this.persistState('GET')
-        console.log(persistState)
         this.setState(persistState)
     }
 

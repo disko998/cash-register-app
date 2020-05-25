@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, FlatList, View } from 'react-native'
+import { StyleSheet, FlatList, View, Platform } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 
 import Colors from '../constants/Colors'
@@ -39,6 +39,9 @@ export default function HomeScreen({ navigation }) {
                         index={index}
                     />
                 )}
+                contentContainerStyle={
+                    Platform.OS === 'web' ? styles.webContainerStyle : null
+                }
                 keyExtractor={item => item.id.toString()}
             />
             <View style={styles.absoluteView}>
@@ -75,5 +78,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         right: 20,
+    },
+    webContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        width: '100%',
     },
 })

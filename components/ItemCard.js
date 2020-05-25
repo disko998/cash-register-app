@@ -1,9 +1,18 @@
 import React from 'react'
-import { TouchableOpacity, StyleSheet, Text } from 'react-native'
+import {
+    TouchableOpacity,
+    StyleSheet,
+    Text,
+    Dimensions,
+    Platform,
+} from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import Colors from '../constants/Colors'
+import Layout from '../constants/Layout'
 import { formatMoney } from '../utils/helpers'
+
+const width = Dimensions.get('window').width
 
 export default function ItemCard({
     bg,
@@ -37,6 +46,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         flexDirection: 'row',
+        width: Platform.OS === 'web' ? width * 0.5 : 'auto',
     },
     title: {
         textAlign: 'center',

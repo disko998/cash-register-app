@@ -12,6 +12,6 @@ TODO:
 [x] fix blue button color
 [x] New popup notification
 
-[] Improve UI for web
-[] change currency
+[x] Improve UI for web
 [] side menu for overview
+[] change currency

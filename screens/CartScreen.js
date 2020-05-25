@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-    View,
-    StatusBar,
-    StyleSheet,
-    FlatList,
-    Platform,
-    Alert,
-} from 'react-native'
+import { View, StatusBar, StyleSheet, FlatList, Platform } from 'react-native'
 import { useToast } from 'react-native-styled-toast'
 
 import ItemCard from '../components/ItemCard'
@@ -118,6 +111,9 @@ export default function CartScreen({ route, navigation }) {
                         onRemove={() => removeItem(id, item.id)}
                     />
                 )}
+                contentContainerStyle={
+                    Platform.OS === 'web' ? styles.webContainerStyle : null
+                }
                 keyExtractor={item => item.id}
             />
 
@@ -148,5 +144,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.background,
         padding: 10,
+    },
+    webContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        width: '100%',
     },
 })
