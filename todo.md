@@ -13,9 +13,9 @@ TODO:
 [x] New popup notification
 [x] Improve UI for web
 [x] side menu for overview
+[x] icon
+[x] configuration publish web, android
 
-[] icon
-[] configuration publish web, android
 [] some basic animations
 [] unit testing
 [] change currency
